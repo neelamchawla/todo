@@ -61,7 +61,6 @@ constructor(){
     const data = list.map((d,id) => {
       return(
         <MyList key={id} done={d.done} name={d.name} onChange={this.doneTodo}
-        setUpdate={this.setUpdate}
         handleDelete={this.handleDelete.bind(this,id)} 
         />
       )
@@ -71,7 +70,7 @@ constructor(){
 
   activeList = (e) => {
     const activeList = this.state.list
-      .filter(res => (res.done === false));
+      .filter(res => (res.done === false))
     console.log(activeList);
   }
 

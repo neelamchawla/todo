@@ -13,6 +13,7 @@ body{
 
 label {
   display: block !important;
+  cursor: pointer;
 }
 
 line.tab{
