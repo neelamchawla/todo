@@ -69,6 +69,18 @@ constructor(){
     return data;
   }
 
+  activeList = (e) => {
+    const activeList = this.state.list
+      .filter(res => (res.done === false));
+    console.log(activeList);
+  }
+
+  completedList = (e) => {
+    const completedList = this.state.list
+      .filter(res => (res.done === true));
+    console.log(completedList);
+  }
+
   selectAllChkBox = (e) => {
     let list = this.state.list
     // console.log("lst",list);
@@ -91,8 +103,8 @@ constructor(){
       return item !== id
     })
     console.log('res list', id)
-    this.setState({list: newlist})  }
-    else { return false }
+    this.setState({list: newlist})  
+    } else { return false }
   }
 
   DeleteAllItems = (id) => {
@@ -115,7 +127,15 @@ constructor(){
             <input type="text" className="form-control" id="todo" value={this.state.todo} onChange={this.handleChange} />
             <button className="btn btn-warning" onClick={this.addTodo} disabled={!this.state.todo}>{"Add " + (this.state.list.length + 1)}</button>
         </div>
-          
+        
+  <MDBIcon icon="check" style={{cursor: 'pointer'}} onClick={this.selectAllChkBox}> Select All
+  </MDBIcon>
+  <span style={{float: 'right', cursor: 'pointer'}}>
+  <MDBIcon icon="ban" onClick={this.deSelectAllChkBox}> De - Select All
+  </MDBIcon>
+  </span>
+  <br/>
+  <hr/>
             {/* <MyList name={"something"} onChange={this.doneTodo}/> */}
 
             {this.renderList()}
@@ -131,12 +151,18 @@ constructor(){
             </span>
         <center>
           <br/>
-            <button className="btn btn-success" onClick={this.selectAllChkBox} >
+            <button className="btn btn-success" onClick={this.activeList} >
+              <MDBIcon icon="check" /> Active
+            </button>
+            <button className="btn btn-info" onClick={this.completedList} >
+              <MDBIcon icon="ban" /> Completed
+            </button>
+            {/* <button className="btn btn-info" onClick={this.selectAllChkBox} >
               <MDBIcon icon="check" /> Select All
-            </button>
-            <button className="btn btn-info" onClick={this.deSelectAllChkBox} >
+            </button> */}
+            {/* <button className="btn btn-info" onClick={this.deSelectAllChkBox} >
                 <MDBIcon icon="ban" /> De - Select All
-            </button>
+            </button> */}
         </center>
       </div>
     )
