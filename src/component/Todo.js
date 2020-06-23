@@ -10,30 +10,27 @@ constructor(){
     this.state = {
       todo: "",
       id: Date.now(),
+      done: false,
       list: []
     }
     this.handleChange = this.handleChange.bind(this);
-    this.addTodo = this.addTodo.bind(this);
-    this.doneTodo = this.doneTodo.bind(this);
-    this.selectAllChkBox = this.selectAllChkBox.bind(this);
-    this.deSelectAllChkBox = this.deSelectAllChkBox.bind(this);
-    // this.handleDelete = this.handleDelete.bind(this);
-    //example if we dnt bind here then, we hv to bind in props property
+    //example if we dnt bind here then, we hv to bind like this addTodo = (e) => {
   }
 
-  handleChange(e){
+  handleChange (e) {
     this.setState({
-      todo: e.target.value
+      todo: e.target.value,
+      done: e.target.done
     })
   }
 
-  addTodo(e){
+  addTodo = (e) => {
     const {todo, list, id} = this.state
     
     const dataToAdd = {
       done: false,
       id: Date.now(),
-      name: todo
+      name: todo.charAt(0).toUpperCase() + todo.slice(1)
     }
 
     list.push(dataToAdd)
@@ -46,7 +43,7 @@ constructor(){
     // console.log('list', list)
   }
 
-  doneTodo(e){
+  doneTodo = (e) => {
     const {value, checked} = e.target
     const {list} = this.state
     const id = list.findIndex(items => items.name === value)
@@ -59,11 +56,12 @@ constructor(){
     console.log([checked === 'done'], 'total');
   }
 
-  renderList(){
+  renderList = () => {
     const {list} = this.state
     const data = list.map((d,id) => {
       return(
-        <MyList key={id} done={d.done} name={d.name} onChange={this.doneTodo} 
+        <MyList key={id} done={d.done} name={d.name} onChange={this.doneTodo}
+        setUpdate={this.setUpdate}
         handleDelete={this.handleDelete.bind(this,id)} 
         />
       )
@@ -77,7 +75,6 @@ constructor(){
     list.map(res => (res.done = true))
     this.setState({list: list})
     console.log('selectAll list', list)
-    return list;
   }
 
   deSelectAllChkBox = (e) => {
@@ -86,7 +83,6 @@ constructor(){
     list.forEach(res => (res.done = false))
     this.setState({list: list})
     console.log('de-selectAll list', list)
-    return list;
   }
   
   handleDelete = (id) => {
@@ -99,24 +95,42 @@ constructor(){
     else { return false }
   }
 
+  DeleteAllItems = (id) => {
+    if (window.confirm("Are You Sure, You Want To Delete All These Items???" )){
+    const Deletelist = this.state.list.filter((done) => {
+      return done === 'false'
+    })
+    console.log('Delete list ', id)
+    this.setState({list: Deletelist})}
+    else { return false }
+  }
+
   render() {
     // console.log("render",this.state.list);
 
     return (
       <div>
         <div className="container">
-            <label htmlFor="todo"><b>TODO LIST</b></label>
+            <h1 htmlFor="todo"><b>TODO LIST</b></h1>
             <input type="text" className="form-control" id="todo" value={this.state.todo} onChange={this.handleChange} />
             <button className="btn btn-warning" onClick={this.addTodo} disabled={!this.state.todo}>{"Add " + (this.state.list.length + 1)}</button>
         </div>
           
             {/* <MyList name={"something"} onChange={this.doneTodo}/> */}
+
             {this.renderList()}
           
             <span style={{color: 'aliceblue'}}>
-                {(this.state.list.length) + " items left"}
+                {(this.state.list
+                  .filter(res => (res.done === false))
+                  .length) + " items left"}
+                
+                <button className="btn3 btn-danger" onClick={this.DeleteAllItems}>
+                <MDBIcon far icon="trash-alt" /> Delete All
+                </button>
             </span>
         <center>
+          <br/>
             <button className="btn btn-success" onClick={this.selectAllChkBox} >
               <MDBIcon icon="check" /> Select All
             </button>
@@ -144,7 +158,10 @@ const MyList = (props) => {
     <Fragment>
       <div className={AlertClass}>
         <div className="checkbox">
-          <label><input type="checkbox" defaultValue={props.name} onChange={props.onChange} checked={props.done}/>{name}</label>
+          <label><input type="checkbox" defaultValue={props.name} onChange={props.onChange} checked={props.done}/>
+          &nbsp;
+          {name}
+          </label>
           <button type="button" className="btn2 btn-danger" 
           onClick={() => props.handleDelete()}
           >

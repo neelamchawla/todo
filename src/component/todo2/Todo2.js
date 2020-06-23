@@ -57,13 +57,13 @@ class Todo2 extends React.Component {
     items.map(item=>{      
       if(item.key===key){
         console.log(item.key +"    "+key)
-        item.text= text;
+         item.text= text;
       }
     })
     this.setState({
       items: items
     })
-    
+    return items;
    
   }
  render(){
