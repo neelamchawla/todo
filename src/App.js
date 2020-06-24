@@ -7,7 +7,7 @@ import 'mdbreact/dist/css/mdb.css';
 import Todo from './component/Todo';
 // import Box from './component/Box';
 // import Todo2 from './component/todo2/Todo2';
-import './component/todo2/Todo2.css';
+// import './component/todo2/Todo2.css';
 
 function App() {
   return (

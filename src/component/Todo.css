@@ -1,5 +1,21 @@
 body{
-  background-color: bisque;
+  background-color: #9266ff;
+}
+
+.App{
+  background-color: #3f3160;
+  background-image: linear-gradient(#2f2741, #9266ff);
+  min-height: 625px;
+  width: 400px;
+  margin: 5px auto;
+  box-shadow: 0px 4px 11px 3px darkslategrey;
+  padding: 2%;
+}
+
+.container {
+  /* background-color: #2f2741; */
+  max-width: 100% !important;
+  padding: 1%;
 }
 
 .apptitle {
@@ -24,8 +40,8 @@ line.tab{
 }
 
 .alert {
-border: 4px solid lemonchiffon !important;
-padding: 0.4rem 1.25rem;
+  border: 4px solid lemonchiffon !important;
+  padding: 0.4rem 1.25rem;
 }
 
 .alert:hover{
@@ -75,14 +91,14 @@ h1 {
 }
 
 .btn {
-  max-width: 30% !important;
+  max-width: 28% !important;
   margin-top: 3% !important;
   padding: 0.84rem 0.14rem;
 }
 
 .btn1{
-    margin: .2rem !important;
-    padding: 0.4rem 2.14rem !important;
+  margin: .2rem !important;
+  padding: 0.4rem 2.14rem !important;
 }
 
 .btn2{
@@ -104,7 +120,8 @@ input[type=checkbox], input[type=radio] {
 
 .btn3 {
   float: right;
-  margin-top: 0px !important;
+  margin-right: 4%;
+  margin-top: -9px !important;
   width: 30% !important;
   padding: 5px !important;
   border-radius: 20%;
@@ -118,39 +135,34 @@ input[type=checkbox], input[type=radio] {
   }
 } */
 
-.todolist {
-  padding-left: 0;
+
+#to-do-form input{
+  background-color: rgba(27, 112, 137, 1);
+  border: 0; 
+  color: #fff;
+  width: 200px;
+  height: 50px;
+  margin: 20px;
+  padding: 0 20px;
+  font-size: 18px;
+  border-radius: 10px;
 }
-.todolist .todoitem {
-  position: relative;
-  margin-bottom: 0.25rem;
-  padding: 0.5rem 2rem 0.5rem 0.5rem;
-  border-top: 1px solid #ccc;
+#to-do-form input::placeholder{
+  color: rgba(255,255,255,0.5);
 }
-.todolist .todoitem.done .form-check-label {
-  color: #999;
-  text-decoration: line-through;
+#to-do-form input:focus{
+  outline: none;
 }
-.todolist .todoitem.highlight {
-  border-color: #ff2968;
-  background-color: #ff8fb0;
+#to-do-form button{
+  height: 50px;
+  width: 80px;
+  border-radius: 5px;
+  border: 0;
+  background-color:rgba(202, 156, 24, 1); 
+  cursor: pointer;
 }
-.todolist .todoitem.highlight:last-child {
-  border-color: #ff2968;
-}
-.todolist .todoitem:last-child {
-  border-bottom: 1px solid #ccc;
-}
-.todolist .todoitem .btn-danger {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-}
-.todolist .todoitem .form-check-label {
-  width: 100%;
-}
-.todolist .todoitem .form-check-label .form-check-input {
-  margin-right: 1rem;
+#to-do-form button:focus{
+  outline: none;
 }
 
 
