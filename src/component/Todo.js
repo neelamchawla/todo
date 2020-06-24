@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
-// import React, { Component } from 'react';
 import { MDBIcon } from "mdbreact";
-// import { MDBRow, MDBCol } from "mdbreact";
 import './Todo.css';
 
 class Todo extends React.Component {
@@ -11,7 +9,10 @@ constructor(){
       todo: "",
       id: Date.now(),
       done: false,
-      list: []
+      list: [],
+      showAll: true,
+      showActive: false,
+      showComplete: false
     }
     this.handleChange = this.handleChange.bind(this);
     //example if we dnt bind here then, we hv to bind like this addTodo = (e) => {
@@ -56,30 +57,6 @@ constructor(){
     console.log([checked === 'done'], 'total');
   }
 
-  renderList = () => {
-    const {list} = this.state
-    const data = list.map((d,id) => {
-      return(
-        <MyList key={id} done={d.done} name={d.name} onChange={this.doneTodo}
-        handleDelete={this.handleDelete.bind(this,id)} 
-        />
-      )
-    })
-    return data;
-  }
-
-  activeList = (e) => {
-    const activeList = this.state.list
-      .filter(res => (res.done === false))
-    console.log(activeList);
-  }
-
-  completedList = (e) => {
-    const completedList = this.state.list
-      .filter(res => (res.done === true));
-    console.log(completedList);
-  }
-
   selectAllChkBox = (e) => {
     let list = this.state.list
     // console.log("lst",list);
@@ -116,8 +93,76 @@ constructor(){
     else { return false }
   }
 
+// ======================================================
+
+renderList = () => {
+  const {list} = this.state;
+  const data = list.map((d,id) => {
+    return(
+      <MyList key={id} done={d.done} name={d.name} onChange={this.doneTodo}
+      handleDelete={this.handleDelete.bind(this,id)} 
+      />
+    )
+  })
+  // console.log(list);
+  return data;
+}
+
+// ======================================================
+
+renderActiveList = () => {
+  // alert('test');
+  const activeList = this.state.list.filter(res => (res.done === false));
+  const activeData = activeList.map((d,id) => {
+    return(
+      <MyList key={id} done={d.done} name={d.name} onChange={this.doneTodo}
+      handleDelete={this.handleDelete.bind(this,id)} 
+      />
+    )
+  })
+  console.log(activeList);
+  return activeData;
+}
+
+// ======================================================
+
+renderCompletedList = () => {
+  // alert('test');
+  const completedList = this.state.list.filter(res => (res.done === true));
+  const completedData = completedList.map((d,id) => {
+    return(
+      <MyList key={id} done={d.done} name={d.name} onChange={this.doneTodo}
+      handleDelete={this.handleDelete.bind(this,id)} 
+      />
+    )
+  })
+  console.log(completedList);
+  return completedData;
+}
+
+// ======================================================
+
+hideComponent = (name) => {
+  switch (name) {
+    case "showActive":
+      this.setState({ showActive: true, showAll: false, showComplete: false });
+      break;
+    case "showComplete":
+      this.setState({ showComplete: true, showAll: false, showActive: false });
+      break;
+    case "showAll": 
+      this.setState({ showAll: true, showActive: false, showComplete: false });
+      break;
+    default:
+      this.setState({ showAll: true, showActive: false, showComplete: false });
+  }
+}
+
+// ======================================================
+
   render() {
     // console.log("render",this.state.list);
+    const { showAll, showActive, showComplete } = this.state;
 
     return (
       <div>
@@ -126,10 +171,12 @@ constructor(){
             <input type="text" className="form-control" id="todo" value={this.state.todo} onChange={this.handleChange} />
             <button className="btn btn-warning" onClick={this.addTodo} disabled={!this.state.todo}>{"Add " + (this.state.list.length + 1)}</button>
         </div>
-        
-  <MDBIcon icon="check" style={{cursor: 'pointer'}} onClick={this.selectAllChkBox}> Select All
+
+  <span className="check">
+  <MDBIcon icon="check" onClick={this.selectAllChkBox}> Select All
   </MDBIcon>
-  <span style={{float: 'right', cursor: 'pointer'}}>
+  </span>    
+  <span className="check" style={{float: 'right'}}>
   <MDBIcon icon="ban" onClick={this.deSelectAllChkBox}> De - Select All
   </MDBIcon>
   </span>
@@ -137,7 +184,12 @@ constructor(){
   <hr/>
             {/* <MyList name={"something"} onChange={this.doneTodo}/> */}
 
-            {this.renderList()}
+            <div className="box">
+            { showAll && this.renderList()}
+            { showActive && this.renderActiveList() }
+            { showComplete && this.renderCompletedList() }
+            </div>
+            <br/>
           
             <span style={{color: 'aliceblue'}}>
                 {(this.state.list
@@ -150,18 +202,21 @@ constructor(){
             </span>
         <center>
           <br/>
-            <button className="btn btn-success" onClick={this.activeList} >
+
+            <button className="btn btn-success"
+            onClick={() => this.hideComponent('showAll')}
+            >
+              <MDBIcon icon="check" /> All
+            </button>
+            <button className="btn btn-info"
+            onClick={() => this.hideComponent("showActive")}
+            >
               <MDBIcon icon="check" /> Active
             </button>
-            <button className="btn btn-info" onClick={this.completedList} >
+            <button className="btn btn-info"
+            onClick={() => this.hideComponent("showComplete")} >
               <MDBIcon icon="ban" /> Completed
             </button>
-            {/* <button className="btn btn-info" onClick={this.selectAllChkBox} >
-              <MDBIcon icon="check" /> Select All
-            </button> */}
-            {/* <button className="btn btn-info" onClick={this.deSelectAllChkBox} >
-                <MDBIcon icon="ban" /> De - Select All
-            </button> */}
         </center>
       </div>
     )
