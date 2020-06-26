@@ -1,21 +1,27 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
-// import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-import Todo from './component/Todo';
-// import Box from './component/Box';
-// import Todo2 from './component/todo2/Todo2';
-// import './component/todo2/Todo2.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Navbar from './component/Navbar';
+import Home from './component/Home';
+import Todo from './component/Todo1/Todo';
+import Todo2 from './component/Todo2/Todo2';
+import TodoList from './component/Todo3/TodoList';
+import './component/Todo2/Todo2.css';
+import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Todo />
-      {/* <Box /> */}
-      {/* <Todo2 /> */}
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Navbar />
+        <Route exact path='/' component={Home} />
+        <Route path='/todo1' component={Todo} />
+        <Route path='/todo2' component={Todo2} />
+        <Route path='/todo3' component={TodoList} />
+      </div>
+    </BrowserRouter>
   );
 }
 

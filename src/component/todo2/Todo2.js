@@ -43,6 +43,7 @@ class Todo2 extends React.Component {
       }
     })
   }
+
   deleteItem(key){
     const filteredItems= this.state.items.filter(item =>
       item.key!==key);
@@ -51,33 +52,35 @@ class Todo2 extends React.Component {
     })
 
   }
-  setUpdate(text,key){
+
+  setUpdate (text,key) {
     console.log("items:"+this.state.items);
     const items = this.state.items;
-    items.map(item=>{      
-      if(item.key===key){
-        console.log(item.key +"    "+key)
-         item.text= text;
+    // eslint-disable-next-line
+    items.map((item) => {      
+      if(item.key === key){
+        console.log(item.key +"    "+key);
+         item.text = text;
       }
     })
     this.setState({
       items: items
     })
     return items;
-   
   }
+  
  render(){
   return (
-    <div >
+    <div>
       <header>
         <form id="to-do-form" className="container" onSubmit={this.addItem}>
           <input type="text" placeholder="Enter task" value= {this.state.currentItem.text} onChange={this.handleInput}></input>
           <button type="submit">Add</button>
         </form>
-        <p>{this.state.items.text}</p>
-        
+        <div className="box2">
+          <p>{this.state.items.text}</p>
           <ListItems items={this.state.items} deleteItem={this.deleteItem} setUpdate={this.setUpdate}/>
-        
+        </div>
       </header>
     </div>
   );

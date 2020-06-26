@@ -16,7 +16,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,6 +56,16 @@ code {
 
 /* ------------------------- Nav Bar --------------------- */
 /* ------------------------------------------------------- */
+
+h1 {
+  color: mediumturquoise;
+  text-shadow: -2px 1px 1px aliceblue;
+  text-decoration: underline;
+  text-align: center;
+  padding-bottom: 5%;
+  margin-top: -5%;
+}
+
 .navbar {
   background-color: thistle;
 }
@@ -71,6 +81,16 @@ code {
   text-decoration: none !important;
 }
 
+li, ul {
+  display: contents;
+  list-style-type: none;
+  color: aliceblue;
+  font-weight: 500;
+}
+
+a{
+  color: #d6e1ec;
+}
 /* .card-img, .card-img-bottom, .card-img-top {
   flex-shrink: 0;
   width: 30% !important;
@@ -89,14 +109,48 @@ code {
 }
 
 
-/* ------------------------- App -------------------- */
+/* ------------------------- Home -------------------- */
 /* ------------------------------------------------------- */
 
 /* @media (min-width: 1200px) { */
-  .container, .container-lg, .container-md, .container-sm, .container-xl {
-      max-width: 50%;
+  /* .container, .container-lg, .container-md, .container-sm, .container-xl { */
+  .home { 
+      max-width: 100%;
       background-color: cornsilk;
       margin-top: 1%;
       padding: 2%;
+      color: crimson;
+  }
+
+  .card-content{
+    display: contents;
+  }
+
+  .body {
+    color: aliceblue;
+    padding: 1em;
+  }
+
+  .card-title {
+    margin-bottom: .75rem;
+    background-color: slategrey;
+    color: initial;
+    display: block;
+    padding: 1%;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .containers {
+    border-radius: 2%;
+    padding: 0 !important;
+    box-shadow: 3px 4px 2px darkmagenta;
+  }  
+
+  .box2 {
+    margin-top: 6%;
+    overflow: auto;
+    max-height: 350px;
+    min-height: 375px;
   }
 /* } */

@@ -15,7 +15,7 @@ constructor(){
       showComplete: false
     }
     this.handleChange = this.handleChange.bind(this);
-    //example if we dnt bind here then, we hv to bind like this addTodo = (e) => {
+    //example if we dnt bind here then, we hv to bind like this anyMethod = (e) => {
   }
 
   handleChange (e) {
@@ -27,7 +27,7 @@ constructor(){
 
   addTodo = (e) => {
     const {todo, list, id} = this.state
-    
+
     const dataToAdd = {
       done: false,
       id: Date.now(),
@@ -48,13 +48,13 @@ constructor(){
     const {value, checked} = e.target
     const {list} = this.state
     const id = list.findIndex(items => items.name === value)
-    console.log("doneTodo",id, value, checked)
+    console.log("doneTodo: ", id, value, checked)
     // if (id === -1) return
 
     list[id].done = checked
     
     this.setState({list})
-    console.log([checked === 'done'], 'total');
+    // console.log([checked === 'done'], 'total');
   }
 
   selectAllChkBox = (e) => {
@@ -62,7 +62,7 @@ constructor(){
     // console.log("lst",list);
     list.map(res => (res.done = true))
     this.setState({list: list})
-    console.log('selectAll list', list)
+    // console.log('selectAll list', list)
   }
 
   deSelectAllChkBox = (e) => {
@@ -70,7 +70,7 @@ constructor(){
     // console.log("lst",list);
     list.forEach(res => (res.done = false))
     this.setState({list: list})
-    console.log('de-selectAll list', list)
+    // console.log('de-selectAll list', list)
   }
   
   handleDelete = (id) => {
@@ -78,7 +78,7 @@ constructor(){
     const newlist = this.state.list.filter((e, item) => {
       return item !== id
     })
-    console.log('res list', id)
+    // console.log('res list', id)
     this.setState({list: newlist})  
     } else { return false }
   }
@@ -88,7 +88,7 @@ constructor(){
     const Deletelist = this.state.list.filter((done) => {
       return done === 'false'
     })
-    console.log('Delete list ', id)
+    // console.log('Delete list ', id)
     this.setState({list: Deletelist})}
     else { return false }
   }
@@ -140,7 +140,7 @@ renderCompletedList = () => {
   return completedData;
 }
 
-// ======================================================
+// =================== switch case ===========================
 
 hideComponent = (name) => {
   switch (name) {
@@ -162,47 +162,60 @@ hideComponent = (name) => {
 
   render() {
     // console.log("render",this.state.list);
-    const { showAll, showActive, showComplete } = this.state;
+    const { showAll, showActive, showComplete } = this.state;       // switch case state
 
     return (
       <div>
+{/* ============== header container ============== */}
         <div className="container">
-            <h1 htmlFor="todo"><b>TODO LIST</b></h1>
             <input type="text" className="form-control" id="todo" value={this.state.todo} onChange={this.handleChange} />
-            <button className="btn btn-warning" onClick={this.addTodo} disabled={!this.state.todo}>{"Add " + (this.state.list.length + 1)}</button>
+            <button className="btn btn-warning" onClick={this.addTodo} disabled={!this.state.todo}>
+              {"Add " + (this.state.list.length + 1)}
+            </button>
         </div>
 
+{/* ============== Select All / De - Select All ============== */}
   <span className="check">
-  <MDBIcon icon="check" onClick={this.selectAllChkBox}> Select All
+  <MDBIcon icon="check" 
+  onClick={this.selectAllChkBox} 
+  disabled={this.state.list.length === 0}
+  > Select All
   </MDBIcon>
   </span>    
   <span className="check" style={{float: 'right'}}>
-  <MDBIcon icon="ban" onClick={this.deSelectAllChkBox}> De - Select All
+  <MDBIcon icon="ban"
+  onClick={this.deSelectAllChkBox}
+  disabled={this.state.list.length === 0}
+  > De - Select All
   </MDBIcon>
   </span>
   <br/>
   <hr/>
-            {/* <MyList name={"something"} onChange={this.doneTodo}/> */}
 
-            <div className="box">
-            { showAll && this.renderList()}
-            { showActive && this.renderActiveList() }
-            { showComplete && this.renderCompletedList() }
-            </div>
-            <br/>
+{/* ============== Todo List Box ============== */} 
+{/* <MyList name={"something"} onChange={this.doneTodo}/> */}
+
+<div className="box">
+{ showAll && this.renderList()}
+{ showActive && this.renderActiveList() }
+{ showComplete && this.renderCompletedList() }
+</div>
+<br/>
           
             <span style={{color: 'aliceblue'}}>
                 {(this.state.list
                   .filter(res => (res.done === false))
                   .length) + " items left"}
                 
-                <button className="btn3 btn-danger" onClick={this.DeleteAllItems}>
+                <button className="btn3 btn-danger"
+                onClick={this.DeleteAllItems}
+                disabled={this.state.list.length === 0}
+                >
                 <MDBIcon far icon="trash-alt" /> Delete All
                 </button>
             </span>
-        <center>
-          <br/>
-
+{/* ============== hideComponent switch case Buttons ============== */} 
+        <center><br/>
             <button className="btn btn-success"
             onClick={() => this.hideComponent('showAll')}
             >
@@ -223,8 +236,18 @@ hideComponent = (name) => {
   }
 }
 
+// {/* ============== List Method ============== */} 
 const MyList = (props) => {
   let name
+  // const {list} = this.props
+  // const name = list.reduce(function (a, b) {
+  //     if (a.indexOf(b.name) === -1) {
+  //       a.push(b.name)
+  //     }
+  //     return a;
+  //   }, []);
+    
+  // console.log(name);
   let AlertClass
   if(props.done){
     name = <strike>{props.name}</strike>

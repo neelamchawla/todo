@@ -66,3 +66,6 @@ npm run deploy
 --------------------------------------------------------------
 
 npm install axios redux-thunk
+
+asyncActions.js ->
+const applyMiddleware = redux.applyMiddleware
