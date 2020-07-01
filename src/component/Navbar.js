@@ -12,6 +12,9 @@ const Navbar = () => {
                     <li><Link to="/todo1">Todo 1</Link></li>
                     <li><NavLink to="/todo2">Todo 2</NavLink></li>
                     <li><NavLink to="/todo3">Todo 3</NavLink></li>
+                    <li><NavLink to="/redux">Redux</NavLink></li>
+                    {/* <li><NavLink to="/todo5">Todo 5</NavLink></li> */}
+                    
                 </ul>
         </nav>
     </>

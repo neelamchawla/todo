@@ -65,7 +65,21 @@ npm run deploy
 
 --------------------------------------------------------------
 
+npm install redux
+
 npm install axios redux-thunk
 
 asyncActions.js ->
 const applyMiddleware = redux.applyMiddleware
+
+npm i react-redux
+npm i firebase
+npm install react-redux-firebase redux-firestore
+
+
+---- TypeError: Object(...) is not a function ----
+
+instead of using: react-redux-firebase and redux-firestore...
+use
+npm install --save react-redux-firebase@2.1.8
+npm install --save redux-firestore@0.5.7

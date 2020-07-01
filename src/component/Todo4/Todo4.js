@@ -1,9 +1,13 @@
 import React, { Fragment } from 'react';
 import { MDBIcon } from "mdbreact";
+import { connect } from 'react-redux';
+// import { firestoreConnect } from 'react-redux-firebase';
+// import { compose } from 'redux';
 
-import './Todo.css';
+import '../Todo1/Todo.css';
+import { setList } from './redux/list.actions';
 
-class Todo extends React.Component {
+class Todo4 extends React.Component {
 constructor(){
   super();
     this.state = {
@@ -27,8 +31,8 @@ constructor(){
   }
 
   addTodo = (e) => {
-    const {todo, list, id} = this.state
-    // const { list } = this.props;
+    const {todo, id} = this.state
+    const { list } = this.props;
 
     const dataToAdd = {
       done: false,
@@ -48,8 +52,8 @@ constructor(){
 
   doneTodo = (e) => {
     const {value, checked} = e.target;
-    const {list} = this.state;
-    // const {list} = this.props;
+    // const {list} = this.state;
+    const {list} = this.props;
     const id = list.findIndex(items => items.name === value);
     console.log("doneTodo: ", id, value, checked);
     // if (id === -1) return
@@ -61,14 +65,14 @@ constructor(){
   }
 
   handleSave = (e) => {
-    // e.preventDefault();
-    console.log(this.state);
-    // this.props.setList(this.state);
+    e.preventDefault();
+    console.log(this.state.list);
+    this.props.setList(this.state.list);
   }
 
   selectAllChkBox = (e) => {
-    let list = this.state.list
-    // const {list} = this.props;
+    // let list = this.state.list
+    const {list} = this.props;
     // console.log("lst",list);
     list.map(res => (res.done = true));
     this.setState({list: list});
@@ -76,8 +80,8 @@ constructor(){
   }
 
   deSelectAllChkBox = (e) => {
-    let list = this.state.list
-    // const {list} = this.props;
+    // let list = this.state.list
+    const {list} = this.props;
     // console.log("lst",list);
     list.forEach(res => (res.done = false));
     this.setState({list: list});
@@ -87,10 +91,10 @@ constructor(){
   handleDelete = (id) => {
     if (window.confirm("Are You Sure, You Want To Delete This Item???" )){
     const newlist = this.state.list.filter((e, item) => {
-      console.log('res list: e, item, id: ', e, item, id)
       return item !== id
     })
-    this.setState({list: newlist})
+    // console.log('res list', id)
+    this.setState({list: newlist})  
     } else { return false }
   }
 
@@ -107,8 +111,8 @@ constructor(){
 // ======================================================
 
 renderList = () => {
-  const {list} = this.state;
-  // const {list} = this.props;
+  // const {list} = this.state;
+  const {list} = this.props;
   const data = list.map((d,id) => {
     return(
       <MyList key={id} done={d.done} name={d.name} onChange={this.doneTodo}
@@ -176,21 +180,21 @@ hideComponent = (name) => {
   render() {
     // console.log("render",this.state.list);
     const { showAll, showActive, showComplete } = this.state;       // switch case state
-    // console.log(this.props);
+    console.log(this.props);
 
     return (
       <div>
 {/* ============== header container ============== */}
         <div className="container">
+          {/* <form onSubmit={this.handleSave}> */}
           <center>
             <input type="text" className="form-control" id="todo" value={this.state.todo} onChange={this.handleChange} />
             <button className="btn btn-warning" onClick={this.addTodo} disabled={!this.state.todo}>
               {"Add " + (this.state.list.length + 1)}
             </button>
 
-            <button
+            {/* <button
             className="btn btn-success"
-            type="submit"
             onSubmit={this.handleSave}
             >
             Save Data
@@ -199,8 +203,9 @@ hideComponent = (name) => {
             className="btn btn-info"
             >
             Fetch Data
-            </button>
+            </button> */}
           </center>
+          {/* </form> */}
         </div>
 
 {/* ============== Select All / De - Select All ============== */}
@@ -307,4 +312,23 @@ const MyList = (props) => {
   )
 }
 
-export default Todo;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    list: state.list.list
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setList: (list) => dispatch(setList(list))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todo4);
+// compose(
+//   connect(mapStateToProps, mapDispatchToProps),
+//   firestoreConnect([
+//     { collection: 'todoList' }
+//   ])
+// )(Todo4);
