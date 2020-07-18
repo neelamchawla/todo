@@ -11,6 +11,7 @@ import Todo2 from './component/Todo2/Todo2';
 import TodoList from './component/Todo3/TodoList';
 import Todo4 from './component/Todo4/Todo4';
 // import Todo5 from './component/Todo5/Todo5';
+import Todo6 from './component/Todo6/Todo6';
 
 import './component/Todo2/Todo2.css';
 import './App.css';
@@ -26,6 +27,7 @@ function App() {
         <Route path='/todo3' component={TodoList} />
         <Route path='/redux' component={Todo4} />
         {/* <Route path='/todo5' component={Todo5} /> */}
+        <Route path='/todo6' component={Todo6} />
       </div>
     </BrowserRouter>
   );

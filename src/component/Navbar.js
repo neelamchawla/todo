@@ -14,6 +14,7 @@ const Navbar = () => {
                     <li><NavLink to="/todo3">Todo 3</NavLink></li>
                     <li><NavLink to="/redux">Redux</NavLink></li>
                     {/* <li><NavLink to="/todo5">Todo 5</NavLink></li> */}
+                    <li><NavLink to="/todo6">Todo6</NavLink></li>
                     
                 </ul>
         </nav>
